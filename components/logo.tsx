@@ -1,11 +1,15 @@
 import Image from "next/image";
 import logo from "../public/logo.svg"
+import Link from "next/link";
 
 export default function Logo() {
   return (
-    <Image
-    src={logo}
-    alt="logo image"
-    />
+    <Link href="/">
+      <Image
+      src={logo}
+      alt="logo image"
+      />
+    </Link>
+
   )
 }
