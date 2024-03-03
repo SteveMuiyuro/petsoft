@@ -9,7 +9,7 @@ export default function Layout({children}:{
   return (
       <>
          <BackgroundPattern/>
-         <div className="max-w-[1050px] m-auto px-4">
+         <div className=" min-h-screen flex flex-col max-w-[1050px] m-auto px-4">
          <AppHeader/>
              {children}
          <AppFooter/>
