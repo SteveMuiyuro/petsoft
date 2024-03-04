@@ -31,7 +31,7 @@ type petProps = {
 
 function TobBar ({pet}:petProps){
   return(
-    <div className="flex items-center bg-white px-8 py-5 border-b border-black/[0.08]">
+    <div className="flex items-center bg-white px-8 py-5 border-b border-light]">
     <Image
     src={pet?.imageUrl}
     alt="selected pet image"
@@ -67,7 +67,7 @@ function OtherInfo({pet}:petProps){
 
 function Notes(pet:petProps){
 return(
- <section className="bg-white px-7 py-5 rounded-md mb-9 flex-1 mx-8 border border-black/[0.08]">{pet?.notes}</section>
+ <section className="bg-white px-7 py-5 rounded-md mb-9 flex-1 mx-8 border border-light">{pet?.note}</section>
 )
 }
 
