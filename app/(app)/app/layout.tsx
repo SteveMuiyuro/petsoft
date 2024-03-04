@@ -2,6 +2,7 @@ import AppFooter from '@/components/app-footer'
 import AppHeader from '@/components/app-header'
 import BackgroundPattern from '@/components/background-pattern'
 import PetsContextProvider from '@/contexts/pets-context-provider'
+import { Pet } from '@/lib/types'
 import React from 'react'
 
 export default async function Layout({children}:{
@@ -12,7 +13,7 @@ export default async function Layout({children}:{
     if(!res.ok){
          throw new Error("Failed to fetch data, something went wrong")
     }
-    const data = await res.json()
+    const data:Pet[] = await res.json()
 
 
   return (
