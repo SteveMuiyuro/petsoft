@@ -12,7 +12,8 @@ type PetsContextProviderProps = {
 
 type PetsContextProps = {
     pets:Pet[],
-    activePetId:string | null
+    activePetId:string | null,
+    handleActiveId: (id:string) => void
 
 }
 
@@ -20,12 +21,17 @@ export default function PetsContextProvider({children, data}:PetsContextProvider
 
 
 const [pets, setPets] = useState(data);
-const [activePetId, setActivePetId] = useState(null)
+const [activePetId, setActivePetId] = useState<string | null>(null)
+
+const handleActiveId = (id:string) => {
+    setActivePetId(id)
+}
 
   return (
     <PetsContext.Provider value={{
         pets,
-        activePetId
+        activePetId,
+        handleActiveId
     }}>{children}</PetsContext.Provider>
   )
 }

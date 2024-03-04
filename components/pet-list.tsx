@@ -11,14 +11,14 @@ type PetListProps = {
 
 export default function PetList() {
 
-  const {pets} = usePetsContext()
+  const {pets, handleActiveId} = usePetsContext()
 
   return (
     <ul className="bg-white border-b border-black/[0.08]">
 
     {pets.map(pet => (
       <li key ={pet.id}>
-          <button className="flex  h-[70px] w-full cursor-pointer items-center text-base px-5 gap-3 hover:bg-[#EFF1F2] focus:bg-[#EFF1F2] transition">
+          <button onClick={()=> handleActiveId(pet.id)}className="flex  h-[70px] w-full cursor-pointer items-center text-base px-5 gap-3 hover:bg-[#EFF1F2] focus:bg-[#EFF1F2] transition">
           <Image
           src={pet.imageUrl}
           alt="Pet Image"
