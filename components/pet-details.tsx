@@ -65,9 +65,12 @@ function OtherInfo({pet}:petProps){
 }
 
 
-function Notes(pet:petProps){
+function Notes({pet}:petProps){
+
 return(
- <section className="bg-white px-7 py-5 rounded-md mb-9 flex-1 mx-8 border border-light">{pet?.note}</section>
+ <section className="bg-white px-7 py-5 rounded-md mb-9 flex-1 mx-8 border border-light">
+   {pet.notes}
+  </section>
 )
 }
 
