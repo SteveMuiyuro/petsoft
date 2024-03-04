@@ -1,7 +1,11 @@
+import { Pet } from '@/lib/types'
 import Image from 'next/image'
 
+type PetListProps = {
+  pets:Pet[]
+}
 
-export default function PetList({pets}) {
+export default function PetList({pets}:PetListProps) {
 
   return (
     <ul className="bg-white border-b border-black/[0.08]">
