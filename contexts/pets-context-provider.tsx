@@ -13,7 +13,8 @@ type PetsContextProviderProps = {
 type PetsContextProps = {
     pets:Pet[],
     activePetId:string | null,
-    handleActiveId: (id:string) => void
+    handleActiveId: (id:string) => void,
+    selectedPet:Pet | undefined
 
 }
 
@@ -27,11 +28,14 @@ const handleActiveId = (id:string) => {
     setActivePetId(id)
 }
 
+const selectedPet = pets.find(pet => pet.id === activePetId)
+
   return (
     <PetsContext.Provider value={{
         pets,
         activePetId,
-        handleActiveId
+        handleActiveId,
+        selectedPet
     }}>{children}</PetsContext.Provider>
   )
 }
