@@ -5,9 +5,10 @@ import { Button } from './ui/button'
 
 type AppButtonProps = {
     actionType: "edit"|"checkout"|"add",
-    children?:React.ReactNode
+    children?:React.ReactNode,
+    onClick?: () => void
 }
-export default function AppButton({actionType, children}:AppButtonProps) {
+export default function AppButton({actionType, children, onClick}:AppButtonProps) {
     if(actionType === "add") {
         return (
           <Button size="icon">
@@ -24,9 +25,9 @@ export default function AppButton({actionType, children}:AppButtonProps) {
           )
     }
 
-    if(actionType=== "checkout") {
+    if(actionType === "checkout") {
         return (
-            <Button variant="secondary">
+            <Button onClick = {onClick} variant="secondary">
              {children}
             </Button>
           )

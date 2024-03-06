@@ -7,7 +7,8 @@ import AppButton from './app-button'
 
 export default function PetDetails() {
 
-  const {selectedPet} = usePetsContext()
+  const {selectedPet, handlePetsCheckout} = usePetsContext()
+
 
 
   return (
@@ -31,6 +32,10 @@ type petProps = {
 }
 
 function TobBar ({pet}:petProps){
+  function handlePetsCheckout(id: string) {
+    throw new Error('Function not implemented.')
+  }
+
   return(
     <div className="flex items-center bg-white px-8 py-5 border-b border-light]">
     <Image
@@ -46,7 +51,7 @@ function TobBar ({pet}:petProps){
 
       <div className="ml-auto space-x-2">
           <AppButton actionType="edit">Edit</AppButton>
-          <AppButton actionType="checkout">Checkout</AppButton>
+          <AppButton actionType="checkout" onClick={()=> handlePetsCheckout(pet.id)}>Checkout</AppButton>
       </div>
 
    </div>
