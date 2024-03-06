@@ -17,7 +17,7 @@ export default function PetList() {
   const {pets, handleActiveId, activePetId} = usePetsContext()
   const {searchText} = useSearchContext()
 
-  const filteredPets = pets.filter(pet => pet.name.toLowerCase().includes(searchText))
+  const filteredPets = pets.filter(pet => pet.name?.toLowerCase().includes(searchText))
 
   return (
 
