@@ -3,7 +3,7 @@ import React from 'react'
 
 type ContentBlockProps = {
   children: React.ReactNode,
-  className:string
+  className?:string
 }
 export default function ContentBlock({children, className}:ContentBlockProps) {
   return (

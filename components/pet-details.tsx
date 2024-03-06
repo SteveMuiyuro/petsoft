@@ -3,6 +3,7 @@ import { usePetsContext } from '@/lib/hooks'
 import { Pet } from '@/lib/types'
 import Image from 'next/image'
 import React from 'react'
+import AppButton from './app-button'
 
 export default function PetDetails() {
 
@@ -42,6 +43,12 @@ function TobBar ({pet}:petProps){
     />
 
     <h2 className="text-3xl font-semibold leading-7 ml-5">{pet?.name}</h2>
+
+      <div className="ml-auto space-x-2">
+          <AppButton actionType="edit">Edit</AppButton>
+          <AppButton actionType="checkout">Checkout</AppButton>
+      </div>
+
    </div>
   )
 }
@@ -59,6 +66,7 @@ function OtherInfo({pet}:petProps){
       <h3 className="text-[13px] font-medium uppercase text-zinc-700">Age</h3>
       <p className="mt-1 text-lg text-zinc-800">{pet?.age}</p>
     </div>
+
 
   </div>
   )

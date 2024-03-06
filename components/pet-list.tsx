@@ -4,6 +4,8 @@ import { usePetsContext, useSearchContext } from '@/lib/hooks'
 import { Pet } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import AppButton from './app-button'
+import { PlusIcon } from '@radix-ui/react-icons'
 
 type PetListProps = {
   pets:Pet[]
@@ -18,6 +20,7 @@ export default function PetList() {
   const filteredPets = pets.filter(pet => pet.name.toLowerCase().includes(searchText))
 
   return (
+
     <ul className="bg-white border-b border-light">
 
     {filteredPets.map(pet => (
@@ -41,5 +44,8 @@ export default function PetList() {
 
     ))}
     </ul>
+
+
+
   )
 }
