@@ -6,9 +6,7 @@ import React from 'react'
 import AppButton from './app-button'
 
 export default function PetDetails() {
-
-  const {selectedPet, handlePetsCheckout} = usePetsContext()
-
+  const {selectedPet} = usePetsContext()
 
 
   return (
@@ -32,9 +30,7 @@ type petProps = {
 }
 
 function TobBar ({pet}:petProps){
-  function handlePetsCheckout(id: string) {
-    throw new Error('Function not implemented.')
-  }
+  const {handlePetCheckout} = usePetsContext()
 
   return(
     <div className="flex items-center bg-white px-8 py-5 border-b border-light]">
@@ -51,7 +47,7 @@ function TobBar ({pet}:petProps){
 
       <div className="ml-auto space-x-2">
           <AppButton actionType="edit">Edit</AppButton>
-          <AppButton actionType="checkout" onClick={()=> handlePetsCheckout(pet.id)}>Checkout</AppButton>
+          <AppButton actionType="checkout" onClick={()=> handlePetCheckout(pet.id)}>Checkout</AppButton>
       </div>
 
    </div>

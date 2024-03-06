@@ -16,7 +16,7 @@ type PetsContextProps = {
     handleActiveId: (id:string) => void,
     selectedPet:Pet | undefined,
     numberOfPets:number,
-    handlePetsCheckout: (id:string) => void
+    handlePetCheckout: (id:string) => void
 
 }
 
@@ -30,7 +30,7 @@ const handleActiveId = (id:string) => {
     setActivePetId(id)
 }
 
-const handlePetsCheckout = (id:string)=> {
+const handlePetCheckout = (id:string)=> {
   setPets(prev => prev.filter(pet => pet.id !== id))
   setActivePetId(null)
 
@@ -47,7 +47,7 @@ const numberOfPets = pets.length;
         handleActiveId,
         selectedPet,
         numberOfPets,
-        handlePetsCheckout
+        handlePetCheckout
     }}>{children}</PetsContext.Provider>
   )
 }
