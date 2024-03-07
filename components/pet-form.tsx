@@ -14,7 +14,7 @@ type PetFormProps = {
 }
 
 export default function PetForm({actionType, onFormSubmission}:PetFormProps) {
- const {handleAddPet} = usePetsContext()
+ const {handleAddPet, selectedPet} = usePetsContext()
 
 const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,27 +38,27 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         <div className='space-y-3'>
             <div className="space-y-1">
                 <Label htmlFor='name'>Name</Label>
-                <Input name="name" id="name" type="text" required/>
+                <Input name="name" id="name" type="text" required defaultValue={actionType==="edit" ? selectedPet?.name: ""}/>
             </div>
 
             <div className="space-y-1">
                 <Label htmlFor='ownername'>OwnerName</Label>
-                <Input name="ownername" id="ownername" type="text" required/>
+                <Input name="ownername" id="ownername" type="text" required defaultValue={actionType==="edit" ? selectedPet?.ownerName: ""}/>
             </div>
 
             <div className="space-y-1">
                 <Label htmlFor='imageurl'>ImageUrl</Label>
-                <Input name="imageurl" id="imageurl" type="text"/>
+                <Input name="imageurl" id="imageurl" type="text" defaultValue={actionType==="edit" ? selectedPet?.imageUrl: ""}/>
             </div>
 
 
             <div className="space-y-1">
                 <Label htmlFor='age'>Age</Label>
-                <Input name="age" id="age" type="number" required/>
+                <Input name="age" id="age" type="number" required defaultValue={actionType==="edit" ? selectedPet?.age: ""}/>
             </div>
             <div className="space-y-1">
                 <Label htmlFor='notes'>Notes</Label>
-                <Textarea name="notes" id="notes" rows={3} required/>
+                <Textarea name="notes" id="notes" rows={3} required defaultValue={actionType==="edit" ? selectedPet?.notes: ""}/>
             </div>
         </div>
         <Button type="submit" className="mt-5 ml-auto">
