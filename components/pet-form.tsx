@@ -10,9 +10,10 @@ import { usePetsContext } from '@/lib/hooks'
 
 type PetFormProps = {
     actionType:"add" | "edit";
+    onFormSubmission: ()=> void;
 }
 
-export default function PetForm({actionType}:PetFormProps) {
+export default function PetForm({actionType, onFormSubmission}:PetFormProps) {
  const {handleAddPet} = usePetsContext()
 
 const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
@@ -28,6 +29,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
      }
 
     handleAddPet(newPet)
+    onFormSubmission()
 
 
     }
