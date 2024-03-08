@@ -14,13 +14,13 @@ type PetFormProps = {
 }
 
 export default function PetForm({actionType, onFormSubmission}:PetFormProps) {
- const {handleAddPet, selectedPet} = usePetsContext()
+ const {handleAddPet, selectedPet, handleEditPet} = usePetsContext()
 
 const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-     const newPet = {
+     const pet = {
         name:formData.get("name") as string,
         ownerName: formData.get("ownerName") as string,
         imageUrl:formData.get("imageurl") as string || "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
@@ -28,7 +28,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         notes:formData.get("notes") as string
      }
 
-    handleAddPet(newPet)
+    actionType === "add" ?  handleAddPet(pet) : handleEditPet(selectedPet!.id, pet)
     onFormSubmission()
 
 

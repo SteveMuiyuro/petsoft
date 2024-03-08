@@ -17,7 +17,8 @@ type PetsContextProps = {
     selectedPet:Pet | undefined,
     numberOfPets:number,
     handlePetCheckout: (id:string) => void,
-    handleAddPet:(newPet:Omit<Pet, "id">) => void
+    handleAddPet:(newPet:Omit<Pet, "id">) => void,
+    handleEditPet:(petId:string, newPet:Omit<Pet, "id">) => void
 
 }
 
@@ -47,6 +48,12 @@ const handleAddPet = (newPet:Omit<Pet, "id">) => {
   }])
 }
 
+
+const handleEditPet = (petId:string, newPet:Omit<Pet, "id">) => {
+ setPets(prev => prev.map(pet => pet.id === petId ? {id:petId,...newPet}: pet))
+
+}
+
 const selectedPet = pets.find(pet => pet.id === activePetId)
 
 const numberOfPets = pets.length;
@@ -59,7 +66,8 @@ const numberOfPets = pets.length;
         selectedPet,
         numberOfPets,
         handlePetCheckout,
-        handleAddPet
+        handleAddPet,
+        handleEditPet
     }}>{children}</PetsContext.Provider>
   )
 }
