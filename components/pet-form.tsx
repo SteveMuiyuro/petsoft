@@ -42,8 +42,8 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
             </div>
 
             <div className="space-y-1">
-                <Label htmlFor='ownername'>OwnerName</Label>
-                <Input name="ownername" id="ownername" type="text" required defaultValue={actionType==="edit" ? selectedPet?.ownerName: ""}/>
+                <Label htmlFor='ownerName'>OwnerName</Label>
+                <Input name="ownerName" id="ownerName" type="text" required defaultValue={actionType==="edit" ? selectedPet?.ownerName: ""}/>
             </div>
 
             <div className="space-y-1">
