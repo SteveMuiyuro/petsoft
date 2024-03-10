@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import prisma from "./db"
 export async function addPet(formData) {
    await prisma.pet.create({
@@ -11,5 +12,7 @@ export async function addPet(formData) {
          notes:formData.get("notes")
         },
     })
+
+    revalidatePath("/app", "layout")
 
 }

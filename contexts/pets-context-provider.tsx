@@ -23,10 +23,10 @@ type PetsContextProps = {
 
 }
 
-export default function PetsContextProvider({children, data}:PetsContextProviderProps) {
+export default function PetsContextProvider({children, data:pets}:PetsContextProviderProps) {
 
 
-const [pets, setPets] = useState(data);
+
 const [activePetId, setActivePetId] = useState<string | null>(null)
 
 const handleActiveId = (id:string) => {
