@@ -7,6 +7,8 @@ import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import { usePetsContext } from '@/lib/hooks'
 import { addPet } from '@/lib/actions'
+import { Sleep } from '@/lib/sleep'
+import PetSubmitButton from './pet-submit-button'
 
 
 type PetFormProps = {
@@ -36,6 +38,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     }
   return (
     <form action={async(formData) => {
+        await Sleep(2000)
         await addPet(formData)
         onFormSubmission()
     }}className="flex flex-col ">
@@ -65,9 +68,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
                 <Textarea name="notes" id="notes" rows={3} required defaultValue={actionType==="edit" ? selectedPet?.notes: ""}/>
             </div>
         </div>
-        <Button type="submit" className="mt-5 ml-auto">
-            {actionType === "add" ? "Add a new pet" : "Edit pet"}
-        </Button>
+        <PetSubmitButton actionType={actionType}/>
     </form>
   )
 }
