@@ -9,6 +9,7 @@ import { usePetsContext } from '@/lib/hooks'
 import { addPet } from '@/lib/actions'
 import { Sleep } from '@/lib/sleep'
 import PetSubmitButton from './pet-submit-button'
+import { toast } from 'sonner'
 
 
 type PetFormProps = {
@@ -39,7 +40,10 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
   return (
     <form action={async(formData) => {
         await Sleep(2000)
-        await addPet(formData)
+        const error = await addPet(formData)
+        if(error) {
+            toast.warning(error.message)
+        }
         onFormSubmission()
     }}className="flex flex-col ">
         <div className='space-y-3'>

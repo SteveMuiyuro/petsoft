@@ -7,6 +7,7 @@ import { Pet } from '@/lib/types'
 import prisma from '@/lib/db'
 
 import React from 'react'
+import { Toaster } from '@/components/ui/sonner'
 
 export default async function Layout({children}:{
     children:React.ReactNode
@@ -25,7 +26,7 @@ export default async function Layout({children}:{
             </PetsContextProvider>
          </SearchContextProvider>
          <AppFooter/>
-
+        <Toaster position="top-right"/>
          </div>
       </>
   )
