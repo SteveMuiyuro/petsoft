@@ -1,11 +1,9 @@
 "use client"
 
 import { usePetsContext, useSearchContext } from '@/lib/hooks'
-import { Pet } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import AppButton from './app-button'
-import { PlusIcon } from '@radix-ui/react-icons'
+import { Pet } from '@prisma/client'
 
 type PetListProps = {
   pets:Pet[]

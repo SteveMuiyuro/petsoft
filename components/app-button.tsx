@@ -13,15 +13,15 @@ type AppButtonProps = {
     actionType: "edit"|"checkout"|"add",
     children?:React.ReactNode,
     onClick?: () => void,
-    disabled?:boolean
+
 }
-export default function AppButton({actionType, children, onClick, disabled}:AppButtonProps) {
+export default function AppButton({actionType, children, onClick}:AppButtonProps) {
 
 const [isFormOpen, setIsFormOpen] = useState(false)
 
   if(actionType === "checkout") {
       return (
-          <Button disabled = {disabled} onClick = {onClick} variant="secondary">
+          <Button onClick = {onClick} variant="secondary">
            {children}
           </Button>
         )
