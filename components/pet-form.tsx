@@ -40,17 +40,9 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
   return (
     <form action={async(formData) => {
         if(actionType === "add") {
-            await Sleep(2000)
-            const error = await addPet(formData)
-            if(error) {
-                toast.warning(error.message)
-            }
+            handleAddPet(formData)
         } else {
-            await Sleep(2000)
-            const error = await editPet(selectedPet?.id,formData)
-            if(error) {
-                toast.warning(error.message)
-            }
+            handleEditPet(selectedPet!.id, formData)
 
         }
         onFormSubmission()

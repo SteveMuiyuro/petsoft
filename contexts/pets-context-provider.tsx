@@ -1,8 +1,10 @@
 "use client"
 
-import { addPet } from '@/lib/actions'
+import { addPet, editPet } from '@/lib/actions'
+import { Sleep } from '@/lib/sleep'
 import { Pet } from '@/lib/types'
-import React, { createContext, useState } from 'react'
+import React, { createContext, useOptimistic, useState } from 'react'
+import { toast } from 'sonner'
 
 export const PetsContext = createContext<PetsContextProps | null>(null)
 
@@ -23,9 +25,11 @@ type PetsContextProps = {
 
 }
 
-export default function PetsContextProvider({children, data:pets}:PetsContextProviderProps) {
 
 
+export default function PetsContextProvider({children, data}:PetsContextProviderProps) {
+
+const [optimisticPets, setOptimisticPets ] = useOptimistic(data)
 
 const [activePetId, setActivePetId] = useState<string | null>(null)
 
@@ -42,24 +46,36 @@ const handlePetCheckout = (id:string)=> {
 
 
 const handleAddPet = async(newPet:Omit<Pet, "id">) => {
+
+  await Sleep(2000)
+            const error = await addPet(formData)
+            if(error) {
+                toast.warning(error.message)
+            }
   // setPets(prev => [...prev,
   //    {
   //   id: Date.now().toString(),
   //   ...newPet
   // }])
-  console.log(newPet)
+
   await addPet(newPet)
 }
 
 
-const handleEditPet = (petId:string, newPet:Omit<Pet, "id">) => {
- setPets(prev => prev.map(pet => pet.id === petId ? {id:petId,...newPet}: pet))
+const handleEditPet = async (petId:string, newPet:Omit<Pet, "id">) => {
+
+  await Sleep(2000)
+            const error = await editPet(selectedPet?.id,formData)
+            if(error) {
+                toast.warning(error.message)
+            }
+//  setPets(prev => prev.map(pet => pet.id === petId ? {id:petId,...newPet}: pet))
 
 }
 
-const selectedPet = pets.find(pet => pet.id === activePetId)
+const selectedPet = optimisticPets.find(pet => pet.id === activePetId)
 
-const numberOfPets = pets.length;
+const numberOfPets = optimisticPets.length;
 
   return (
     <PetsContext.Provider value={{
