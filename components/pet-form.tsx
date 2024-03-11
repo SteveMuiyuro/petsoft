@@ -36,16 +36,24 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     // onFormSubmission()
 
 
-    }
-  return (
+}
+return (
     <form action={async(formData) => {
-        if(actionType === "add") {
-            handleAddPet(formData)
-        } else {
-            handleEditPet(selectedPet!.id, formData)
+        onFormSubmission()
+        const petData = {
+        name:formData.get("name") as string,
+        ownerName: formData.get("ownerName") as string,
+        imageUrl:formData.get("imageurl") as string || "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
+        age: +(formData.get("age") as string),
+        notes:formData.get("notes") as string
 
         }
-        onFormSubmission()
+        if(actionType === "add") {
+           await handleAddPet(petData)
+        } else {
+            await handleEditPet(selectedPet!.id, petData)
+
+        }
     }}className="flex flex-col ">
         <div className='space-y-3'>
             <div className="space-y-1">

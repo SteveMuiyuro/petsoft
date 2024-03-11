@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Button } from './ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import PetForm from './pet-form'
+import { flushSync } from 'react-dom'
 
 
 
@@ -45,7 +46,12 @@ const [isFormOpen, setIsFormOpen] = useState(false)
                {actionType === "add" ? "Add a new pet" : "Edit pet"}
               </DialogTitle>
             </DialogHeader>
-            <PetForm actionType={actionType} onFormSubmission={()=>setIsFormOpen(false)}/>
+            <PetForm actionType={actionType} onFormSubmission={()=>
+              {
+                flushSync(()=> setIsFormOpen(false)
+                )
+              }
+              }/>
           </DialogContent>
           </Dialog>
         )

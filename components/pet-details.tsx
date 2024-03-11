@@ -50,9 +50,8 @@ function TobBar ({pet}:petProps){
       <div className="ml-auto space-x-2">
           <AppButton actionType="edit">Edit</AppButton>
           <AppButton disabled ={isPending} actionType="checkout" onClick={async()=>
-             {
-              startTransition(async() =>  {await deletePet(pet.id)})
-             }
+            await  handlePetCheckout(pet.id)
+
            }>Checkout</AppButton>
       </div>
 
