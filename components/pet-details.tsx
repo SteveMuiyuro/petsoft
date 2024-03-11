@@ -4,6 +4,7 @@ import { Pet } from '@/lib/types'
 import Image from 'next/image'
 import React from 'react'
 import AppButton from './app-button'
+import { deletePet } from '@/lib/actions'
 
 export default function PetDetails() {
   const {selectedPet} = usePetsContext()
@@ -47,7 +48,7 @@ function TobBar ({pet}:petProps){
 
       <div className="ml-auto space-x-2">
           <AppButton actionType="edit">Edit</AppButton>
-          <AppButton actionType="checkout" onClick={()=> handlePetCheckout(pet.id)}>Checkout</AppButton>
+          <AppButton actionType="checkout" onClick={async()=> await deletePet(pet.id)}>Checkout</AppButton>
       </div>
 
    </div>
