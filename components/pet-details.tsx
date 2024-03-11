@@ -2,7 +2,7 @@
 import { usePetsContext } from '@/lib/hooks'
 import { Pet } from '@/lib/types'
 import Image from 'next/image'
-import React from 'react'
+import React, { useTransition } from 'react'
 import AppButton from './app-button'
 import { deletePet } from '@/lib/actions'
 
@@ -32,6 +32,7 @@ type petProps = {
 
 function TobBar ({pet}:petProps){
   const {handlePetCheckout} = usePetsContext()
+  const [isPending, startTransition] = useTransition()
 
   return(
     <div className="flex items-center bg-white px-8 py-5 border-b border-light]">
@@ -48,7 +49,11 @@ function TobBar ({pet}:petProps){
 
       <div className="ml-auto space-x-2">
           <AppButton actionType="edit">Edit</AppButton>
-          <AppButton actionType="checkout" onClick={async()=> await deletePet(pet.id)}>Checkout</AppButton>
+          <AppButton disabled ={isPending} actionType="checkout" onClick={async()=>
+             {
+              startTransition(async() =>  {await deletePet(pet.id)})
+             }
+           }>Checkout</AppButton>
       </div>
 
    </div>

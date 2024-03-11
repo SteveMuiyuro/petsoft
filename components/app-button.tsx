@@ -11,15 +11,16 @@ import PetForm from './pet-form'
 type AppButtonProps = {
     actionType: "edit"|"checkout"|"add",
     children?:React.ReactNode,
-    onClick?: () => void
+    onClick?: () => void,
+    disabled?:boolean
 }
-export default function AppButton({actionType, children, onClick}:AppButtonProps) {
+export default function AppButton({actionType, children, onClick, disabled}:AppButtonProps) {
 
 const [isFormOpen, setIsFormOpen] = useState(false)
 
   if(actionType === "checkout") {
       return (
-          <Button onClick = {onClick} variant="secondary">
+          <Button disabled = {disabled} onClick = {onClick} variant="secondary">
            {children}
           </Button>
         )
