@@ -6,7 +6,7 @@ import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import { usePetsContext } from '@/lib/hooks'
-import { addPet } from '@/lib/actions'
+import { addPet, editPet } from '@/lib/actions'
 import { Sleep } from '@/lib/sleep'
 import PetSubmitButton from './pet-submit-button'
 import { toast } from 'sonner'
@@ -39,10 +39,19 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     }
   return (
     <form action={async(formData) => {
-        await Sleep(2000)
-        const error = await addPet(formData)
-        if(error) {
-            toast.warning(error.message)
+        if(actionType === "add") {
+            await Sleep(2000)
+            const error = await addPet(formData)
+            if(error) {
+                toast.warning(error.message)
+            }
+        } else {
+            await Sleep(2000)
+            const error = await editPet(selectedPet?.id,formData)
+            if(error) {
+                toast.warning(error.message)
+            }
+
         }
         onFormSubmission()
     }}className="flex flex-col ">
