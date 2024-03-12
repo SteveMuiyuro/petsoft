@@ -74,31 +74,31 @@ return (
             <div className="space-y-1">
                 <Label htmlFor='name'>Name</Label>
                 <Input id="name" {...register("name")}/>
-                {errors.name && <p className="text-red-500"></p>}
+                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
 
             <div className="space-y-1">
                 <Label htmlFor='ownerName'>OwnerName</Label>
                 <Input id="ownerName" {...register("ownerName")}/>
-                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                {errors.ownerName && <p className="text-red-500">{errors.ownerName.message}</p>}
             </div>
 
             <div className="space-y-1">
                 <Label htmlFor='imageUrl'>ImageUrl</Label>
                 <Input id="imageUrl" {...register("imageUrl")}/>
-                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                {errors.imageUrl && <p className="text-red-500">{errors.imageUrl.message}</p>}
             </div>
 
 
             <div className="space-y-1">
                 <Label htmlFor='age'>Age</Label>
                 <Input  id="age" {...register("age")}/>
-                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                {errors.age && <p className="text-red-500">{errors.age.message}</p>}
             </div>
             <div className="space-y-1">
                 <Label htmlFor='notes'>Notes</Label>
                 <Textarea  id="notes" {...register("notes")}rows={3}/>
-                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                {errors.notes && <p className="text-red-500">{errors.notes.message}</p>}
             </div>
         </div>
         <PetSubmitButton actionType={actionType}/>
