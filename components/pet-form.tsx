@@ -15,33 +15,27 @@ type PetFormProps = {
     onFormSubmission: ()=> void;
 }
 
-
-type TPetData = {
-    name:string,
-    ownerName:string,
-    age:number,
-    imageUrl:string,
-    notes:string
-}
 export default function PetForm({actionType, onFormSubmission}:PetFormProps) {
- const {handleAddPet, selectedPet, handleEditPet} = usePetsContext()
+    const {handleAddPet, selectedPet, handleEditPet} = usePetsContext()
 
 
- const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-     e.preventDefault();
+//  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+//      e.preventDefault();
 
-    // const formData = new FormData(e.currentTarget);
-    //  const pet = {
-    //     name:formData.get("name") as string,
-    //     ownerName: formData.get("ownerName") as string,
-    //     imageUrl:formData.get("imageurl") as string || "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
-    //     age: +(formData.get("age") as string),
-    //     notes:formData.get("notes") as string
-    //  }
+//     // const formData = new FormData(e.currentTarget);
+//     //  const pet = {
+//     //     name:formData.get("name") as string,
+//     //     ownerName: formData.get("ownerName") as string,
+//     //     imageUrl:formData.get("imageurl") as string || "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
+//     //     age: +(formData.get("age") as string),
+//     //     notes:formData.get("notes") as string
+//     //  }
 
-    // actionType === "add" ?  handleAddPet(pet) : handleEditPet(selectedPet!.id, pet)
-    // onFormSubmission()
-}
+//     // actionType === "add" ?  handleAddPet(pet) : handleEditPet(selectedPet!.id, pet)
+//     // onFormSubmission()
+// }
+
+type TPetData = z.infer<typeof petDataSchema>
 
 const petDataSchema = z.object({
 
