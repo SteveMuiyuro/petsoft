@@ -45,25 +45,24 @@ const petDataSchema = z.object({
     age:z.coerce.number().int().positive().max(999),
     notes:z.union([z.literal(""), z.string().trim().max(1000)])
 
-})
-const {register, trigger, formState:{errors}} = formFunc<TPetData>({
+}).transform(data => ({
+    ...data,
+    imageUrl: data.imageUrl ||
+    "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png"
+}))
+
+const {register, getValues, trigger, formState:{errors}} = formFunc<TPetData>({
    resolver:zodResolver(petDataSchema)
 })
 return (
-    <form action={async(formData) => {
+    <form action={async() => {
 
         const result = await trigger()
         if(!result) return;
 
         onFormSubmission()
-        const petData = {
-        name:formData.get("name") as string,
-        ownerName: formData.get("ownerName") as string,
-        imageUrl:formData.get("imageurl") as string || "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
-        age: +(formData.get("age") as string),
-        notes:formData.get("notes") as string
+        const petData = getValues()
 
-        }
         if(actionType === "add") {
            await handleAddPet(petData)
         } else {
