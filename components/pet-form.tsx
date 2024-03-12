@@ -7,9 +7,9 @@ import { Textarea } from './ui/textarea'
 import { usePetsContext } from '@/lib/hooks'
 import PetSubmitButton from './pet-submit-button'
 import {useForm as formFunc} from "react-hook-form"
-import {z} from "zod"
 import {zodResolver} from "@hookform/resolvers/zod"
 import { DEFAULT_IMAGE } from '@/lib/constant'
+import { TPetData, petDataSchema } from '@/lib/validation'
 
 type PetFormProps = {
     actionType:"add" | "edit";
@@ -36,21 +36,7 @@ export default function PetForm({actionType, onFormSubmission}:PetFormProps) {
 //     // onFormSubmission()
 // }
 
-type TPetData = z.infer<typeof petDataSchema>
 
-const petDataSchema = z.object({
-
-    name:z.string().trim().min(1, {message:"name is required"}).max(100),
-    ownerName: z.string().trim().min(1, {message:"owner name is required"}).max(100),
-    imageUrl:z.union([z.literal(""), z.string().trim().url({message:"imageUrl must be of format url"})]),
-    age:z.coerce.number().int().positive().max(999),
-    notes:z.union([z.literal(""), z.string().trim().max(1000)])
-
-}).transform(data => ({
-    ...data,
-    imageUrl: data.imageUrl ||
-    DEFAULT_IMAGE
-}))
 
 const {register, getValues, trigger, formState:{errors}} = formFunc<TPetData>({
    resolver:zodResolver(petDataSchema)
