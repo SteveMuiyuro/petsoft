@@ -59,6 +59,8 @@ function TobBar ({pet}:petProps){
   )
 }
 
+
+
 function OtherInfo({pet}:petProps){
   return(
 

@@ -6,7 +6,7 @@ import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 import { usePetsContext } from '@/lib/hooks'
 import PetSubmitButton from './pet-submit-button'
-
+import {useForm as formFunc} from "react-hook-form"
 
 
 type PetFormProps = {
@@ -14,8 +14,18 @@ type PetFormProps = {
     onFormSubmission: ()=> void;
 }
 
+
+type TPetData = {
+    name:string,
+    ownerName:string,
+    age:number,
+    imageUrl:string,
+    notes:string
+}
 export default function PetForm({actionType, onFormSubmission}:PetFormProps) {
  const {handleAddPet, selectedPet, handleEditPet} = usePetsContext()
+
+const {register, formState:{errors}} = formFunc<TPetData>()
 
 const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,6 +46,7 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
 }
 return (
     <form action={async(formData) => {
+
         onFormSubmission()
         const petData = {
         name:formData.get("name") as string,
@@ -55,30 +66,38 @@ return (
         <div className='space-y-3'>
             <div className="space-y-1">
                 <Label htmlFor='name'>Name</Label>
-                <Input name="name" id="name" type="text" required defaultValue={actionType==="edit" ? selectedPet?.name: ""}/>
+                <Input id="name" {...register("name")}/>
+                {errors.name && <p className="text-red-500"></p>}
             </div>
 
             <div className="space-y-1">
                 <Label htmlFor='ownerName'>OwnerName</Label>
-                <Input name="ownerName" id="ownerName" type="text" required defaultValue={actionType==="edit" ? selectedPet?.ownerName: ""}/>
+                <Input id="ownerName" {...register("ownerName")}/>
+                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
 
             <div className="space-y-1">
                 <Label htmlFor='imageUrl'>ImageUrl</Label>
-                <Input name="imageUrl" id="imageUrl" type="text" defaultValue={actionType==="edit" ? selectedPet?.imageUrl: ""}/>
+                <Input id="imageUrl" {...register("imageUrl")}/>
+                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
 
 
             <div className="space-y-1">
                 <Label htmlFor='age'>Age</Label>
-                <Input name="age" id="age" type="number" required defaultValue={actionType==="edit" ? selectedPet?.age: ""}/>
+                <Input  id="age" {...register("age")}/>
+                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
             <div className="space-y-1">
                 <Label htmlFor='notes'>Notes</Label>
-                <Textarea name="notes" id="notes" rows={3} required defaultValue={actionType==="edit" ? selectedPet?.notes: ""}/>
+                <Textarea  id="notes" {...register("notes")}rows={3}/>
+                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
         </div>
         <PetSubmitButton actionType={actionType}/>
     </form>
   )
+}
+function useForm() {
+    throw new Error('Function not implemented.')
 }
