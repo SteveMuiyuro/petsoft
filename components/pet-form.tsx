@@ -7,7 +7,8 @@ import { Textarea } from './ui/textarea'
 import { usePetsContext } from '@/lib/hooks'
 import PetSubmitButton from './pet-submit-button'
 import {useForm as formFunc} from "react-hook-form"
-
+import {z} from "zod"
+import {zodResolver} from "@hookform/resolvers/zod"
 
 type PetFormProps = {
     actionType:"add" | "edit";
@@ -25,10 +26,9 @@ type TPetData = {
 export default function PetForm({actionType, onFormSubmission}:PetFormProps) {
  const {handleAddPet, selectedPet, handleEditPet} = usePetsContext()
 
-const {register, formState:{errors}} = formFunc<TPetData>()
 
-const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+     e.preventDefault();
 
     // const formData = new FormData(e.currentTarget);
     //  const pet = {
@@ -41,11 +41,25 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
 
     // actionType === "add" ?  handleAddPet(pet) : handleEditPet(selectedPet!.id, pet)
     // onFormSubmission()
-
-
 }
+
+const petDataSchema = z.object({
+
+    name:z.string().trim().min(1, {message:"name is required"}).max(100),
+    ownerName: z.string().trim().min(1, {message:"owner name is required"}).max(100),
+    imageUrl:z.union([z.literal(""), z.string().trim().url({message:"imageUrl must be of format url"})]),
+    age:z.coerce.number().int().positive().max(999),
+    notes:z.union([z.literal(""), z.string().trim().max(1000)])
+
+})
+const {register, trigger, formState:{errors}} = formFunc<TPetData>({
+   resolver:zodResolver(petDataSchema)
+})
 return (
     <form action={async(formData) => {
+
+        const result = await trigger()
+        if(!result) return;
 
         onFormSubmission()
         const petData = {
