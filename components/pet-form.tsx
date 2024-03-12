@@ -9,6 +9,7 @@ import PetSubmitButton from './pet-submit-button'
 import {useForm as formFunc} from "react-hook-form"
 import {z} from "zod"
 import {zodResolver} from "@hookform/resolvers/zod"
+import { DEFAULT_IMAGE } from '@/lib/constant'
 
 type PetFormProps = {
     actionType:"add" | "edit";
@@ -48,7 +49,7 @@ const petDataSchema = z.object({
 }).transform(data => ({
     ...data,
     imageUrl: data.imageUrl ||
-    "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png"
+    DEFAULT_IMAGE
 }))
 
 const {register, getValues, trigger, formState:{errors}} = formFunc<TPetData>({
@@ -62,6 +63,7 @@ return (
 
         onFormSubmission()
         const petData = getValues()
+        petData.imageUrl = petData.imageUrl || DEFAULT_IMAGE
 
         if(actionType === "add") {
            await handleAddPet(petData)
