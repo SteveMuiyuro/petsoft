@@ -5,12 +5,12 @@ import prisma from "./db"
 import { Sleep } from "./sleep";
 import { PetEssentials } from "./types";
 import { Pet } from "@prisma/client";
-import { petDataSchema } from "./validation";
-export async function addPet(newPet:PetEssentials) {
+import { petDataSchema, petIdSchema } from "./validation";
+export async function addPet(newPet:unknown) {
 
     const validatedPet = petDataSchema.safeParse(newPet)
 
-    if(!validatedPet.success) return "Invalid pet data"
+    if(!validatedPet.success) return {message:"Invalid pet data"}
 
     try{
         await Sleep(1000)
@@ -28,14 +28,19 @@ export async function addPet(newPet:PetEssentials) {
 
 }
 
-export async function editPet(petId:Pet["id"], editedPet:PetEssentials) {
+export async function editPet(petId:unknown, editedPet:unknown) {
+    const validatedPet = petDataSchema.safeParse(editedPet)
+    const validatedPetId = petIdSchema.safeParse(petId)
+
+    if(!validatedPet.success || !validatedPetId.success) return {message:"Invalid pet data"}
+
     try{
         await Sleep(1000)
         await prisma.pet.update({
             where:{
-                id:petId
+                id:validatedPetId.data
             },
-            data:editedPet,
+            data:validatedPet.data,
             })
 
         }
@@ -50,12 +55,15 @@ export async function editPet(petId:Pet["id"], editedPet:PetEssentials) {
 
 }
 
-export async function deletePet(petId:Pet["id"]) {
+export async function deletePet(petId:unknown) {
+    const validatedPetId = petIdSchema.safeParse(petId)
+    if(!validatedPetId.success) return {message:"Invalid pet data"}
+
     try{
         await Sleep(1000)
         await prisma.pet.delete({
             where:{
-                id:petId
+                id:validatedPetId.data
             }
 
         })
