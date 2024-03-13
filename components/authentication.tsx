@@ -3,7 +3,13 @@ import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 
-export default function Authentication() {
+type AuthenticationProps = {
+
+  type: "signin" | "signup"
+
+}
+
+export default function Authentication({type}:AuthenticationProps) {
   return (
     <form className="">
         <div className="space-y-1">
@@ -14,7 +20,7 @@ export default function Authentication() {
             <Label htmlFor="email">Password</Label>
             <Input id="password" type="password"/>
         </div>
-        <Button>Log in</Button>
+        <Button>{type === "signin" ? "signin" : "signup"}</Button>
     </form>
   )
 }
