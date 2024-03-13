@@ -20,7 +20,7 @@ export default function Authentication({type}:AuthenticationProps) {
             <Label htmlFor="email">Password</Label>
             <Input id="password" type="password"/>
         </div>
-        <Button>{type === "signin" ? "signin" : "signup"}</Button>
+        <Button>{type === "signin" ? "Sign in" : "Sign up"}</Button>
     </form>
   )
 }
