@@ -6,6 +6,19 @@ import { Sleep } from "./sleep";
 import { PetEssentials } from "./types";
 import { Pet } from "@prisma/client";
 import { petDataSchema, petIdSchema } from "./validation";
+import { signIn } from "./auth";
+
+
+//user actions
+export async function login(formData:FormData) {
+
+    const authData = Object.fromEntries(formData.entries())
+
+    await signIn("credentials",authData)
+
+}
+
+//Pet actions
 export async function addPet(newPet:unknown) {
 
     const validatedPet = petDataSchema.safeParse(newPet)
