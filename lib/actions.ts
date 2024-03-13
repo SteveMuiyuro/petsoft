@@ -3,8 +3,6 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./db"
 import { Sleep } from "./sleep";
-import { PetEssentials } from "./types";
-import { Pet } from "@prisma/client";
 import { petDataSchema, petIdSchema } from "./validation";
 import { signIn } from "./auth";
 
@@ -13,8 +11,7 @@ import { signIn } from "./auth";
 export async function login(formData:FormData) {
 
     const authData = Object.fromEntries(formData.entries())
-
-    await signIn("credentials",authData)
+    await signIn("credentials", authData)
 
 }
 

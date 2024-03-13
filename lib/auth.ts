@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthConfig } from "next-auth"
 import credentials from "next-auth/providers/credentials";
-
+import bcrypt from "bcryptjs"
 
 const config = {
     pages:{
@@ -11,7 +11,7 @@ const config = {
          async authorize(credentials) {
             const {email, password} = credentials;
 
-            const user = prisma?.user.findUnique({
+            const user = await prisma?.user.findUnique({
                 where: {
                     email
                 }
@@ -35,16 +35,23 @@ const config = {
         })
     ],
     callbacks:{
-        authorized:({request}) => {
+        authorized:({auth, request}) => {
 
+            const isLoggedIn = auth?.user
             const isTryingToAccessApp = request.nextUrl.pathname.includes("/app")
 
-            if(isTryingToAccessApp){
-                return false;
-            }
-            else{
-                return true;
-            }
+               if(!isLoggedIn && isTryingToAccessApp) {
+                return false
+               }
+
+               if(isLoggedIn && isTryingToAccessApp) {
+                return true
+               }
+
+               if(!isTryingToAccessApp) {
+                return true
+               }
+
         }
     },
 

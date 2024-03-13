@@ -40,13 +40,13 @@ export default function PetForm({actionType, onFormSubmission}:PetFormProps) {
 
 const {register, getValues, trigger, formState:{errors}} = formFunc<TPetData>({
    resolver:zodResolver(petDataSchema),
-   defaultValues:{
+   defaultValues: actionType === "edit" ? {
     name:selectedPet?.name,
     ownerName:selectedPet?.ownerName,
     imageUrl:selectedPet?.imageUrl,
     age:selectedPet?.age,
     notes:selectedPet?.notes
-   }
+   } : undefined
 })
 return (
     <form action={async() => {

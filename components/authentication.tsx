@@ -15,11 +15,11 @@ export default function Authentication({type}:AuthenticationProps) {
     <form action={login} className="">
         <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email"/>
+            <Input name="email" id="email" type="email"/>
         </div>
         <div className="mb-4 mt-2 space-y-1">
-            <Label htmlFor="email">Password</Label>
-            <Input id="password" type="password"/>
+            <Label htmlFor="password">Password</Label>
+            <Input name="password" id="password" type="password"/>
         </div>
         <Button>{type === "signin" ? "Sign in" : "Sign up"}</Button>
     </form>
