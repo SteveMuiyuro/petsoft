@@ -40,6 +40,8 @@ export async function login(formData:FormData) {
 //Pet actions
 export async function addPet(newPet:unknown) {
 
+    //Authenitcation
+
     const session = await auth()
 
     if(!session?.user) {
@@ -50,6 +52,7 @@ export async function addPet(newPet:unknown) {
 
     if(!validatedPet.success) return {message:"Invalid pet data"}
 
+    //Database mutation
     try{
         await Sleep(1000)
         await prisma.pet.create({
@@ -129,6 +132,8 @@ export async function editPet(petId:unknown, editedPet:unknown) {
 }
 
 export async function deletePet(petId:unknown) {
+
+    //Authentication
     const session = await auth()
 
     if(!session?.user){
@@ -138,6 +143,7 @@ export async function deletePet(petId:unknown) {
     const validatedPetId = petIdSchema.safeParse(petId)
     if(!validatedPetId.success) return {message:"Invalid pet data"}
 
+    //Authorization
     const pet = await prisma.pet.findUnique({
         where:{
             id:validatedPetId.data
@@ -153,7 +159,7 @@ export async function deletePet(petId:unknown) {
             message:"Not authorized"
         }
     }
-
+    //Database Mutation
     try{
         await Sleep(1000)
         await prisma.pet.delete({
