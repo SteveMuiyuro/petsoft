@@ -4,9 +4,15 @@ import { revalidatePath } from "next/cache";
 import prisma from "./db"
 import { Sleep } from "./sleep";
 import { petDataSchema, petIdSchema } from "./validation";
-import { signIn } from "./auth";
+import { signIn, signOut } from "./auth";
 
+//sign out
 
+export async function logout(){
+     await signOut({
+        redirectTo:"/"
+    })
+}
 //user actions
 export async function login(formData:FormData) {
 
