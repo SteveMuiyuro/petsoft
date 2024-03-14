@@ -73,10 +73,39 @@ export async function addPet(newPet:unknown) {
 }
 
 export async function editPet(petId:unknown, editedPet:unknown) {
+
+    //Authentication
+
+    const session = await auth()
+    if(!session?.user){
+        redirect("/signin")
+
+    }
+
     const validatedPet = petDataSchema.safeParse(editedPet)
     const validatedPetId = petIdSchema.safeParse(petId)
 
     if(!validatedPet.success || !validatedPetId.success) return {message:"Invalid pet data"}
+
+    //Authorization
+    const pet = await prisma.pet.findUnique({
+        where: {
+            id: validatedPetId.data
+        }
+    })
+
+    if(!pet){
+        return {
+            message:"Pet not found"
+        }
+    }
+
+    if(pet.userId !== session.user.id){
+        return {
+            message:"Not authorized"
+        }
+    }
+   //Database Mutation
 
     try{
         await Sleep(1000)
