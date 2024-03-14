@@ -2,7 +2,7 @@ import React from 'react'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { login } from '@/lib/actions'
+import { login, signup } from '@/lib/actions'
 
 type AuthenticationProps = {
 
@@ -12,7 +12,7 @@ type AuthenticationProps = {
 
 export default function Authentication({type}:AuthenticationProps) {
   return (
-    <form action={login} className="">
+    <form action={type==="signin" ? login : signup} className="">
         <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
             <Input name="email" id="email" type="email"/>

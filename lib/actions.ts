@@ -5,6 +5,22 @@ import prisma from "./db"
 import { Sleep } from "./sleep";
 import { petDataSchema, petIdSchema } from "./validation";
 import { signIn, signOut } from "./auth";
+import bcrypt from "bcryptjs"
+// sign up
+
+export async function signup(formData:FormData){
+    const hashedPassword = await bcrypt.hash(formData.get("password"), 10)
+
+    await prisma.user.create({
+        data:{
+            email: formData.get("email"),
+            hashedPassword,
+        }
+    })
+
+    await signIn("credentials", formData)
+
+}
 
 //sign out
 
@@ -16,8 +32,7 @@ export async function logout(){
 //user actions
 export async function login(formData:FormData) {
 
-    const authData = Object.fromEntries(formData.entries())
-    await signIn("credentials", authData)
+    await signIn("credentials", formData)
 
 }
 
