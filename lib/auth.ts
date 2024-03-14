@@ -68,8 +68,9 @@ const config = {
         },
 
         session:({token, session}) => {
-            session.user.id = token.userId;
-            
+            if(session.user)
+                session.user.id = token.userId;
+
             return session
         }
 
