@@ -7,6 +7,7 @@ import { petDataSchema, petIdSchema } from "./validation";
 import { auth, signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs"
 import { redirect } from "next/navigation";
+import { checkAuth } from "./server-utils";
 // sign up
 
 export async function signup(formData:FormData){
@@ -42,11 +43,7 @@ export async function addPet(newPet:unknown) {
 
     //Authenitcation
 
-    const session = await auth()
-
-    if(!session?.user) {
-        redirect("/signin")
-    }
+    const session = await checkAuth()
 
     const validatedPet = petDataSchema.safeParse(newPet)
 
@@ -78,12 +75,7 @@ export async function addPet(newPet:unknown) {
 export async function editPet(petId:unknown, editedPet:unknown) {
 
     //Authentication
-
-    const session = await auth()
-    if(!session?.user){
-        redirect("/signin")
-
-    }
+    const session = await  checkAuth()
 
     const validatedPet = petDataSchema.safeParse(editedPet)
     const validatedPetId = petIdSchema.safeParse(petId)
@@ -134,11 +126,7 @@ export async function editPet(petId:unknown, editedPet:unknown) {
 export async function deletePet(petId:unknown) {
 
     //Authentication
-    const session = await auth()
-
-    if(!session?.user){
-        redirect("/signin")
-    }
+    const session = await  checkAuth()
 
     const validatedPetId = petIdSchema.safeParse(petId)
     if(!validatedPetId.success) return {message:"Invalid pet data"}
