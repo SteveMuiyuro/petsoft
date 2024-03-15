@@ -39,18 +39,8 @@ export async function login(formData:unknown) {
             message:"Wrong form data"
         }
     }
-    const formDataObject = Object.fromEntries(formData.entries())
-    const validatedFormData = authSchema.safeParse(formDataObject)
 
-    if(!validatedFormData.success){
-        return {
-            message:"Invalid form data"
-        }
-    }
-
-
-
-    await signIn("credentials", validatedFormData.data)
+    await signIn("credentials", formData)
 
 }
 
