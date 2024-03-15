@@ -7,15 +7,34 @@ import { authSchema, petDataSchema, petIdSchema } from "./validation";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs"
 import { checkAuth } from "./server-utils";
-import { Form } from "react-hook-form";
+
 // sign up
 
-export async function signup(formData:FormData){
-    const hashedPassword = await bcrypt.hash(formData.get("password"), 10)
+export async function signup(formData:unknown){
+
+    if(!(formData instanceof FormData)){
+        return {
+            message:"Invalid form data"
+        }
+
+    }
+
+    const formDataObjects = Object.fromEntries(formData.entries())
+
+    const validatedFormData = authSchema.safeParse(formDataObjects)
+
+    if(!validatedFormData.success){
+        return {
+            message:"Invalid form data"
+        }
+    }
+
+    const {email, password} = validatedFormData.data;
+    const hashedPassword = await bcrypt.hash(password, 10)
 
     await prisma.user.create({
         data:{
-            email: formData.get("email"),
+            email,
             hashedPassword,
         }
     })
