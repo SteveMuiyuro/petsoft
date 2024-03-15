@@ -3,10 +3,11 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./db"
 import { Sleep } from "./sleep";
-import { petDataSchema, petIdSchema } from "./validation";
+import { authSchema, petDataSchema, petIdSchema } from "./validation";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs"
 import { checkAuth } from "./server-utils";
+import { Form } from "react-hook-form";
 // sign up
 
 export async function signup(formData:FormData){
@@ -31,9 +32,25 @@ export async function logout(){
     })
 }
 //user actions
-export async function login(formData:FormData) {
+export async function login(formData:unknown) {
 
-    await signIn("credentials", formData)
+    if(!(formData instanceof FormData)){
+        return {
+            message:"Wrong form data"
+        }
+    }
+    const formDataObject = Object.fromEntries(formData.entries())
+    const validatedFormData = authSchema.safeParse(formDataObject)
+
+    if(!validatedFormData.success){
+        return {
+            message:"Invalid form data"
+        }
+    }
+
+
+
+    await signIn("credentials", validatedFormData.data)
 
 }
 

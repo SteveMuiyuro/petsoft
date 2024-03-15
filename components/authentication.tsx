@@ -11,6 +11,7 @@ type AuthenticationProps = {
 }
 
 export default function Authentication({type}:AuthenticationProps) {
+  
   return (
     <form action={type==="signin" ? login : signup} className="">
         <div className="space-y-1">
