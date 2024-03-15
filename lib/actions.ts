@@ -4,9 +4,8 @@ import { revalidatePath } from "next/cache";
 import prisma from "./db"
 import { Sleep } from "./sleep";
 import { petDataSchema, petIdSchema } from "./validation";
-import { auth, signIn, signOut } from "./auth";
+import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs"
-import { redirect } from "next/navigation";
 import { checkAuth } from "./server-utils";
 // sign up
 
