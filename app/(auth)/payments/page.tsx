@@ -6,7 +6,7 @@ export default function page() {
   return (
     <main className="flex flex-col gap-y-10 items-center">
         <H1>Make a one time payment to access petsoft</H1>
-        <Button>Purchase lifetime access for $299 only</Button>
+        <Button>Purchase lifetime access for EURO 299 only</Button>
     </main>
   )
 }
