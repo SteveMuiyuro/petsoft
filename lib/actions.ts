@@ -11,7 +11,7 @@ import { Prisma } from "@prisma/client";
 
 // sign up
 
-export async function signup(formData:unknown){
+export async function signup(prevState:unknown, formData:unknown){
     await Sleep(1000)
 
     if(!(formData instanceof FormData)){
