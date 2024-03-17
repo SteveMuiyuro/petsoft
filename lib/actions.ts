@@ -7,6 +7,7 @@ import { authSchema, petDataSchema, petIdSchema } from "./validation";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs"
 import { checkAuth } from "./server-utils";
+import { Prisma } from "@prisma/client";
 
 // sign up
 
@@ -31,13 +32,25 @@ export async function signup(formData:unknown){
 
     const {email, password} = validatedFormData.data;
     const hashedPassword = await bcrypt.hash(password, 10)
-
+try{
     await prisma.user.create({
         data:{
             email,
             hashedPassword,
         }
     })
+}catch(error){
+    if(error instanceof Prisma.PrismaClientKnownRequestError){
+        if(error.code === "P2002"){
+            return {
+                message: "Email already exist."
+            }
+        }
+    }
+    return {
+        message:"could not create user."
+    }
+}
 
     await signIn("credentials", formData)
 
