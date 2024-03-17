@@ -95,9 +95,7 @@ export async function login(prevState:unknown, formData:unknown) {
             }
         }
 
-        return {
-            message: "Could not sign in."
-        }
+        throw error//netjs redirect throws error so we need to rethrow it
 
     }
 
