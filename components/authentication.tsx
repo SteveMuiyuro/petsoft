@@ -18,9 +18,10 @@ export default function Authentication({type}:AuthenticationProps)
 {
 
   const [signUpError, dispatchSignUp] = useFormState(signup, undefined)
+  const [signInError, dispatchSignIn] = useFormState(login, undefined)
 
   return (
-    <form action={dispatchSignUp} className="">
+    <form action={type=== "signup" ? dispatchSignUp : dispatchSignIn } className="">
         <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
             <Input name="email" id="email" type="email" required maxLength={100}/>
@@ -31,6 +32,7 @@ export default function Authentication({type}:AuthenticationProps)
         </div>
        <AuthButton type={type}/>
        {signUpError && <p className="text-red-500 text-sm mt-5">{signUpError.message}</p>}
+       {signInError && <p className="text-red-500 text-sm mt-5">{signInError.message}</p>}
     </form>
   )
 }

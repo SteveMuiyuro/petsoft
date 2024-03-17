@@ -8,6 +8,7 @@ import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs"
 import { checkAuth } from "./server-utils";
 import { Prisma } from "@prisma/client";
+import { AuthError } from "next-auth";
 
 // sign up
 
@@ -65,7 +66,7 @@ export async function logout(){
     })
 }
 //user actions
-export async function login(formData:unknown) {
+export async function login(prevState:unknown, formData:unknown) {
     await Sleep(1000)
 
     if(!(formData instanceof FormData)){
@@ -74,7 +75,31 @@ export async function login(formData:unknown) {
         }
     }
 
-    await signIn("credentials", formData)
+    try{
+            await signIn("credentials", formData)
+
+    } catch(error){
+        if(error instanceof AuthError){
+            switch(error.type){
+                case "CredentialsSignin" :{
+                    return {
+                        message: "Invalid credentials."
+                    }
+                }
+
+                default:{
+                    return {
+                        message: "Couldnot sign in."
+                    }
+                }
+            }
+        }
+
+        return {
+            message: "Could not sign in."
+        }
+
+    }
 
 }
 
