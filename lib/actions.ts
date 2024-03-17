@@ -12,6 +12,7 @@ import { Prisma } from "@prisma/client";
 // sign up
 
 export async function signup(formData:unknown){
+    await Sleep(1000)
 
     if(!(formData instanceof FormData)){
         return {
@@ -65,6 +66,7 @@ export async function logout(){
 }
 //user actions
 export async function login(formData:unknown) {
+    await Sleep(1000)
 
     if(!(formData instanceof FormData)){
         return {

@@ -3,6 +3,7 @@ import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { login, signup } from '@/lib/actions'
+import AuthButton from './auth-button'
 
 type AuthenticationProps = {
 
@@ -11,7 +12,7 @@ type AuthenticationProps = {
 }
 
 export default function Authentication({type}:AuthenticationProps) {
-  
+
   return (
     <form action={type==="signin" ? login : signup} className="">
         <div className="space-y-1">
@@ -22,7 +23,7 @@ export default function Authentication({type}:AuthenticationProps) {
             <Label htmlFor="password">Password</Label>
             <Input name="password" id="password" type="password" required maxLength={100}/>
         </div>
-        <Button>{type === "signin" ? "Sign in" : "Sign up"}</Button>
+       <AuthButton type={type}/>
     </form>
   )
 }
