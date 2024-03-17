@@ -61,6 +61,7 @@ try{
 //sign out
 
 export async function logout(){
+    await Sleep(1000)
      await signOut({
         redirectTo:"/"
     })
