@@ -50,7 +50,7 @@ const config = {
                 return false
                }
 
-               if(isLoggedIn && isTryingToAccessApp) {
+               if(isLoggedIn && isTryingToAccessApp && auth?.user.hasAccess) {
                 return true
                }
 
@@ -71,6 +71,7 @@ const config = {
         jwt:({token, user}) => {
             if(user) {
                 token.userId = user.id
+                token.hasAccess = user.hasAccess
             }
 
             return token;
