@@ -247,14 +247,12 @@ export async function createCheckoutSession(){
         },
     ],
     mode:"payment",
-    success_url:`${process.env.CANONICAL_URL}/payments?success=true`,
-    cancel_url:`${process.env.CANONICAL_URL}/payments?cancelled=true`
+    success_url:`${process.env.CANONICAL_URL}/payment?success=true`,
+    cancel_url:`${process.env.CANONICAL_URL}/payment?cancelled=true`
 
  })
     //redirect user
 
-    console.log(checkoutSession)
-
-    redirect(checkoutSession.url)
+     redirect(checkoutSession.url)
 
 }
