@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { createCheckoutSession } from '@/lib/actions'
 import React, { useTransition } from 'react'
 
-export default function page({searchParams}) {
+export default function page({searchParams}:{ searchParams: { [key: string]: string | string[] | undefined }}) {
 
   const [isPending, startTransition] = useTransition()
   return (
