@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import React, { useTransition } from 'react'
 
-export default function page({searchParams}:{ searchParams: { [key: string]: string | string[] | undefined }}) {
+export default function Page({searchParams}:{ searchParams: { [key: string]: string | string[] | undefined }}) {
 
   const [isPending, startTransition] = useTransition()
   const {data:session, update, status} = useSession()
