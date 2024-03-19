@@ -1,13 +1,13 @@
-import "server-only"
+import "server-only";
 
 import { redirect } from "next/navigation";
-import { auth } from "./auth";
+import { auth } from "./auth-no-edge";
 
-export async function checkAuth(){
-    const session = await auth()
-    if(!session?.user) {
-        redirect("/signin")
-    }
+export async function checkAuth() {
+  const session = await auth();
+  if (!session?.user) {
+    redirect("/signin");
+  }
 
-    return session;
+  return session;
 }
