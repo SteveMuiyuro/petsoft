@@ -9,13 +9,14 @@ import React, { useTransition } from 'react'
 export default function page({searchParams}:{ searchParams: { [key: string]: string | string[] | undefined }}) {
 
   const [isPending, startTransition] = useTransition()
-  const {update} = useSession()
+  const {data:session, update, status} = useSession()
   const router = useRouter()
+
 
   return (
     <main className="flex flex-col gap-y-10 items-center">
         <H1>Make a one time payment to access petsoft</H1>
-       {searchParams.success && <Button onClick={ async()=> {
+       {searchParams.success && <Button disabled={status === "loading" || session?.user.hasAccess} onClick={ async()=> {
         await update(true)
         router.push("/app/dashboard");
        }}>Access Petsoft</Button>}
