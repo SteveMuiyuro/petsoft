@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import prisma from "./db"
-import { Sleep } from "./sleep";
 import { authSchema, petDataSchema, petIdSchema } from "./validation";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs"
@@ -14,7 +13,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // sign up
 
 export async function signup(prevState:unknown, formData:unknown){
-    await Sleep(1000)
+
 
     if(!(formData instanceof FormData)){
         return {
@@ -62,14 +61,12 @@ try{
 //sign out
 
 export async function logout(){
-    await Sleep(1000)
      await signOut({
         redirectTo:"/"
     })
 }
 //user actions
 export async function login(prevState:unknown, formData:unknown) {
-    await Sleep(1000)
 
     if(!(formData instanceof FormData)){
         return {
@@ -116,7 +113,7 @@ export async function addPet(newPet:unknown) {
 
     //Database mutation
     try{
-        await Sleep(1000)
+
         await prisma.pet.create({
              data:{...validatedPet.data,
                 User:{
@@ -168,7 +165,6 @@ export async function editPet(petId:unknown, editedPet:unknown) {
    //Database Mutation
 
     try{
-        await Sleep(1000)
         await prisma.pet.update({
             where:{
                 id:validatedPetId.data
@@ -214,7 +210,7 @@ export async function deletePet(petId:unknown) {
     }
     //Database Mutation
     try{
-        await Sleep(1000)
+
         await prisma.pet.delete({
             where:{
                 id:validatedPetId.data
