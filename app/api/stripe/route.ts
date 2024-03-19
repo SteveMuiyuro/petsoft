@@ -4,17 +4,19 @@ export async function POST(request:Request){
 
     const data = await request.json()
 
-   await prisma?.user.update({
+    console.log(data)
+
+   await prisma.user.update({
 
     where:{
-        email:data.data.object.customer_email
+        email:data.data.object.customer_email,
     },
     data:{
-        hasAccess:true
+        hasAccess:true,
     }
    })
 
 
-    // return Response.json(null, {status:200});
+    return Response.json(null, {status:200});
 
 }
