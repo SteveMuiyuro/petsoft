@@ -3,7 +3,7 @@ import prisma from "./db";
 
 export const nextAuthEdgeConfig = {
   pages: {
-    signIn: "/login",
+    signIn: "/signin",
   },
   callbacks: {
     authorized: ({ auth, request }) => {
@@ -25,7 +25,7 @@ export const nextAuthEdgeConfig = {
 
       if (
         isLoggedIn &&
-        (request.nextUrl.pathname.includes("/login") ||
+        (request.nextUrl.pathname.includes("/signin") ||
           request.nextUrl.pathname.includes("/signup")) &&
         auth?.user.hasAccess
       ) {
@@ -34,7 +34,7 @@ export const nextAuthEdgeConfig = {
 
       if (isLoggedIn && !isTryingToAccessApp && !auth?.user.hasAccess) {
         if (
-          request.nextUrl.pathname.includes("/login") ||
+          request.nextUrl.pathname.includes("/signin") ||
           request.nextUrl.pathname.includes("/signup")
         ) {
           return Response.redirect(new URL("/payment", request.nextUrl));
